@@ -5,122 +5,409 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Love! 🤍</title>
     <style>
-        body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
-            color: #f8fafc;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+        }
+        body {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #fbcfe8 100%);
+            color: #0f172a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow-x: hidden;
+            position: relative;
         }
-        .card {
-            background: rgba(15, 23, 42, 0.95);
-            border: 2px solid #38bdf8;
-            border-radius: 20px;
-            padding: 25px;
-            max-width: 400px;
+
+        /* Canvas Kembang Api */
+        #fireworksCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        .container {
             width: 100%;
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
-            box-sizing: border-box;
+            max-width: 420px;
+            padding: 20px;
+            z-index: 10;
         }
-        input[type="password"] {
-            padding: 10px 15px;
-            border-radius: 10px;
-            border: 1px solid #38bdf8;
-            background: #1e293b;
-            color: #fff;
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            border: 3px solid #7dd3fc;
+            border-radius: 30px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 12px 35px rgba(56, 189, 248, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        /* DEKORASI PITA IMUT */
+        .ribbon {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+        }
+
+        /* ANIMASI DOKEKA & KUCING GOYANG */
+        .cute-character {
+            font-size: 48px;
+            display: inline-block;
+            animation: bounceWiggle 1.8s infinite ease-in-out;
+            margin-bottom: 5px;
+        }
+
+        @keyframes bounceWiggle {
+            0%, 100% { transform: translateY(0) rotate(-8deg) scale(1); }
+            50% { transform: translateY(-8px) rotate(8deg) scale(1.1); }
+        }
+
+        /* KOTAK PASSWORD */
+        input[type="text"] {
+            padding: 12px 18px;
+            border-radius: 20px;
+            border: 2px solid #38bdf8;
+            background: #f0f9ff;
+            color: #0369a1;
             text-align: center;
             font-size: 16px;
-            margin-top: 10px;
-            width: 80%;
+            margin-top: 15px;
+            width: 85%;
             outline: none;
+            font-weight: bold;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
+
         .btn {
-            background: #38bdf8;
-            color: #0f172a;
+            background: linear-gradient(135deg, #38bdf8, #f472b6);
+            color: #ffffff;
             border: none;
-            padding: 12px 24px;
+            padding: 12px 30px;
             font-size: 16px;
             font-weight: bold;
             border-radius: 25px;
             cursor: pointer;
-            margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            margin-top: 18px;
+            box-shadow: 0 5px 15px rgba(244, 114, 182, 0.4);
             transition: 0.3s;
         }
-        .btn:hover { transform: scale(1.05); }
-        #surpriseContent { display: none; margin-top: 20px; }
-        #errorMsg { color: #f43f5e; font-size: 13px; margin-top: 8px; display: none; }
+        .btn:hover { transform: scale(1.08) rotate(1deg); }
+
+        #errorMsg { 
+            color: #f43f5e; 
+            font-size: 13px; 
+            margin-top: 10px; 
+            display: none; 
+            font-weight: 600;
+        }
+
+        /* DESAIN AMPLOP UNYU */
+        #envelopeBox {
+            display: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 210px;
+            height: 140px;
+            background-color: #38bdf8;
+            margin: 25px auto 10px auto;
+            border-radius: 0 0 18px 18px;
+            box-shadow: 0 8px 22px rgba(2, 132, 199, 0.25);
+            transition: transform 0.3s ease;
+        }
+        .envelope-wrapper:hover {
+            transform: scale(1.08);
+        }
+
+        .envelope-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 105px solid transparent;
+            border-right: 105px solid transparent;
+            border-top: 85px solid #7dd3fc;
+            transform-origin: top;
+            transition: transform 0.5s ease 0.2s;
+            z-index: 3;
+        }
+
+        .envelope-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 105px solid #38bdf8;
+            border-right: 105px solid #38bdf8;
+            border-bottom: 70px solid #7dd3fc;
+            border-radius: 0 0 18px 18px;
+            z-index: 2;
+        }
+
+        .heart-seal {
+            position: absolute;
+            top: 65px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            z-index: 4;
+            animation: heartPulse 1.2s infinite;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.3); }
+        }
+
+        /* ISI KEJUTAN */
+        #surpriseContent {
+            display: none;
+            animation: popUpCute 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popUpCute {
+            0% { opacity: 0; transform: scale(0.7) rotate(-5deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
         img {
             width: 100%;
-            max-width: 300px;
-            border-radius: 15px;
-            border: 2px solid #38bdf8;
-            margin-top: 15px;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+            max-width: 280px;
+            border-radius: 22px;
+            border: 4px solid #7dd3fc;
+            margin-top: 10px;
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.35);
         }
+
         .message-box {
-            background: #1e293b;
-            padding: 16px;
-            border-radius: 12px;
+            background: #f0f9ff;
+            padding: 18px;
+            border-radius: 18px;
             font-size: 13.5px;
             line-height: 1.6;
-            margin-top: 15px;
+            margin-top: 18px;
             text-align: left;
-            border-left: 4px solid #38bdf8;
-            color: #e2e8f0;
+            border-left: 5px solid #38bdf8;
+            color: #0369a1;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        /* ANIMASI IKON GEMAS TERBANG */
+        .floating-item {
+            position: fixed;
+            bottom: -50px;
+            font-size: 26px;
+            pointer-events: none;
+            z-index: 90;
+            animation: floatUp 4s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div id="loginBox">
-        <h2 style="color: #38bdf8; margin-top: 0;">Masukkan Kata Sandi 🔒</h2>
-        <p style="color: #94a3b8; font-size: 14px;">Masukkan password rahasia untuk membuka kejutan:</p>
-        
-        <input type="password" id="passInput" placeholder="Ketik 1234...">
-        <p id="errorMsg">Password salah, coba ingat-ingat lagi ya sayang! 😜</p>
-        <br>
-        <button class="btn" onclick="checkPassword()">Buka Kejutan 🎁</button>
-    </div>
+    <canvas id="fireworksCanvas"></canvas>
 
-    <div id="surpriseContent">
-        <h1 style="color: #60a5fa; font-size: 22px; margin-bottom: 10px;">Happy Birthday, Love! 🤍</h1>
-        
-        <!-- Foto Catbox -->
-        <img src="https://files.catbox.moe/5vzar9.jpg" alt="Foto Pacar">
-        
-        <!-- Pesan Ucapan -->
-        <div class="message-box">
-            I hope this year brings you lots of happiness, good things, and everything you’ve been wishing for. Thank you for always being there and making my days better. I’m so lucky to have you. Love youu, enjoy your day! 🫶🏻🎂❤️
+    <div class="container">
+        <div class="card">
+            <div class="ribbon">🎀</div>
+            
+            <!-- 1. KOTAK PASSWORD -->
+            <div id="loginBox">
+                <div class="cute-character">🧸🐾</div>
+                <h2 style="color: #0284c7; margin-top: 0; font-size: 20px;">Masukkan Password 🔒</h2>
+                <p style="color: #0369a1; font-size: 13.5px; margin-top: 6px;">Ketik kata kunci rahasianya yaa:</p>
+                
+                <input type="text" id="passInput" placeholder="Ketik 1234..." onkeypress="handleKeyPress(event)">
+                <p id="errorMsg">Password salah, coba ketik 1234! 😜</p>
+                <br>
+                <button class="btn" onclick="checkPassword()">Buka Surprise ✨</button>
+            </div>
+
+            <!-- 2. KOTAK AMPLOP -->
+            <div id="envelopeBox" onclick="openEnvelope()">
+                <div class="cute-character">🐱🎁</div>
+                <h2 style="color: #0284c7; font-size: 20px;">Ada Surat Buat Kamu! ✉️</h2>
+                <p style="color: #0369a1; font-size: 13px; margin-top: 5px;">Klik amplop imut di bawah ini ✨</p>
+                
+                <div class="envelope-wrapper">
+                    <div class="heart-seal">💌</div>
+                </div>
+            </div>
+
+            <!-- 3. ISI KEJUTAN -->
+            <div id="surpriseContent">
+                <div class="cute-character">🥳🎉</div>
+                <h1 style="color: #0284c7; font-size: 21px; margin-bottom: 5px;">Happy Birthday, Love! 🤍</h1>
+                
+                <!-- Foto Catbox -->
+                <img src="https://files.catbox.moe/5vzar9.jpg" alt="Foto Pacar">
+                
+                <!-- Pesan Ucapan -->
+                <div class="message-box">
+                    I hope this year brings you lots of happiness, good things, and everything you’ve been wishing for. Thank you for always being there and making my days better. I’m so lucky to have you. Love youu, enjoy your day! 🫶🏻🎂❤️
+                </div>
+
+                <!-- Musik Catbox -->
+                <audio id="bgMusic" loop style="margin-top: 15px; width: 100%;">
+                    <source src="https://files.catbox.moe/mi2cg3.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
         </div>
-
-        <!-- Musik Catbox -->
-        <audio id="bgMusic" loop>
-            <source src="https://files.catbox.moe/mi2cg3.mp3" type="audio/mpeg">
-        </audio>
     </div>
-</div>
 
 <script>
+    // CEK PASSWORD
     function checkPassword() {
-        // PASSWORD SUDAH DIGANTI MENJADI 1234
         const secretPassword = "1234"; 
+        const userInput = document.getElementById('passInput').value.trim();
         
-        const userInput = document.getElementById('passInput').value;
         if (userInput === secretPassword) {
             document.getElementById('loginBox').style.display = 'none';
-            document.getElementById('surpriseContent').style.display = 'block';
-            var music = document.getElementById('bgMusic');
-            music.play();
+            document.getElementById('envelopeBox').style.display = 'block';
         } else {
             document.getElementById('errorMsg').style.display = 'block';
         }
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === "Enter") {
+            checkPassword();
+        }
+    }
+
+    // BUKA AMPLOP
+    function openEnvelope() {
+        document.getElementById('envelopeBox').style.display = 'none';
+        document.getElementById('surpriseContent').style.display = 'block';
+        
+        var music = document.getElementById('bgMusic');
+        music.play();
+
+        startFireworks();
+        startFloatingItems();
+    }
+
+    // ANIMASI ELEMEN GEMAS TERBANG
+    function startFloatingItems() {
+        const icons = ['🎈', '🤍', '✨', '🎂', '💙', '🧸', '🐱', '🌸', '🎀'];
+        setInterval(() => {
+            const item = document.createElement('div');
+            item.classList.add('floating-item');
+            item.innerText = icons[Math.floor(Math.random() * icons.length)];
+            item.style.left = Math.random() * 90 + 'vw';
+            item.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(item);
+
+            setTimeout(() => { item.remove(); }, 4000);
+        }, 280);
+    }
+
+    // KEMBANG API TEMA PASTEL & EMAS
+    function startFireworks() {
+        const canvas = document.getElementById("fireworksCanvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        const colors = ["#38bdf8", "#f472b6", "#bae6fd", "#fde047", "#ffffff", "#a7f3d0"];
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.radius = Math.random() * 3.5 + 1;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * (Math.random() * 10 + 2),
+                    y: (Math.random() - 0.5) * (Math.random() * 10 + 2)
+                };
+                this.alpha = 1;
+                this.friction = 0.96;
+                this.gravity = 0.08;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.velocity.x *= this.friction;
+                this.velocity.y *= this.friction;
+                this.velocity.y += this.gravity;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= 0.015;
+            }
+        }
+
+        function createExplosion(x, y) {
+            const count = 55;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
+        let fireCount = 0;
+        const interval = setInterval(() => {
+            const randomX = Math.random() * (canvas.width * 0.8) + (canvas.width * 0.1);
+            const randomY = Math.random() * (canvas.height * 0.5) + (canvas.height * 0.1);
+            createExplosion(randomX, randomY);
+            fireCount++;
+            if (fireCount > 10) {
+                clearInterval(interval);
+            }
+        }, 350);
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, index) => {
+                if (particle.alpha > 0) {
+                    particle.update();
+                    particle.draw();
+                } else {
+                    particles.splice(index, 1);
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     }
 </script>
 
