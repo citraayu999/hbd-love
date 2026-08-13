@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Love! 🤍</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card {
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid #38bdf8;
+            border-radius: 20px;
+            padding: 25px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+            box-sizing: border-box;
+        }
+        input[type="password"] {
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid #38bdf8;
+            background: #1e293b;
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 80%;
+            outline: none;
+        }
+        .btn {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            transition: 0.3s;
+        }
+        .btn:hover { transform: scale(1.05); }
+        #surpriseContent { display: none; margin-top: 20px; }
+        #errorMsg { color: #f43f5e; font-size: 13px; margin-top: 8px; display: none; }
+        img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            border: 2px solid #38bdf8;
+            margin-top: 15px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+        .message-box {
+            background: #1e293b;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            line-height: 1.6;
+            margin-top: 15px;
+            text-align: left;
+            border-left: 4px solid #38bdf8;
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="loginBox">
+        <h2 style="color: #38bdf8; margin-top: 0;">Masukkan Kata Sandi 🔒</h2>
+        <p style="color: #94a3b8; font-size: 14px;">Masukkan password rahasia untuk membuka kejutan:</p>
+        
+        <input type="password" id="passInput" placeholder="Ketik 1234...">
+        <p id="errorMsg">Password salah, coba ingat-ingat lagi ya sayang! 😜</p>
+        <br>
+        <button class="btn" onclick="checkPassword()">Buka Kejutan 🎁</button>
+    </div>
+
+    <div id="surpriseContent">
+        <h1 style="color: #60a5fa; font-size: 22px; margin-bottom: 10px;">Happy Birthday, Love! 🤍</h1>
+        
+        <!-- Foto Catbox -->
+        <img src="https://files.catbox.moe/5vzar9.jpg" alt="Foto Pacar">
+        
+        <!-- Pesan Ucapan -->
+        <div class="message-box">
+            I hope this year brings you lots of happiness, good things, and everything you’ve been wishing for. Thank you for always being there and making my days better. I’m so lucky to have you. Love youu, enjoy your day! 🫶🏻🎂❤️
+        </div>
+
+        <!-- Musik Catbox -->
+        <audio id="bgMusic" loop>
+            <source src="https://files.catbox.moe/mi2cg3.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+</div>
+
+<script>
+    function checkPassword() {
+        // PASSWORD SUDAH DIGANTI MENJADI 1234
+        const secretPassword = "1234"; 
+        
+        const userInput = document.getElementById('passInput').value;
+        if (userInput === secretPassword) {
+            document.getElementById('loginBox').style.display = 'none';
+            document.getElementById('surpriseContent').style.display = 'block';
+            var music = document.getElementById('bgMusic');
+            music.play();
+        } else {
+            document.getElementById('errorMsg').style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
